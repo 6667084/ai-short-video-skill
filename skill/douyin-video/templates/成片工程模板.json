@@ -1,0 +1,15 @@
+{
+ "篇名": "<篇名>（<系列> #<序号>，<风格>）",
+ "日期": "YYYY-MM-DD",
+ "主片": {"渠道": "即梦画布 CLI", "model": "seedance_2.5", "resolution": "720p 原生", "duration": 26, "积分": 520, "submit_id": "<submit_id>"},
+ "BGM": {"usd": 0.066, "used": "产出/raw/<篇名>_bgm_1.mp3", "alt": "产出/raw/<篇名>_bgm_2.mp3"},
+ "插入": [
+  {"video": "产出/raw/<篇名>_算账板.mp4", "start": 0.0, "end": 0.0, "mode": "replace"},
+  {"video": "产出/raw/<篇名>_产品揭幕.mov", "start": 0.0, "end": 0.0, "mode": "overlay"}
+ ],
+ "片尾": "产出/raw/<篇名>_片尾.mp4",
+ "字幕与花字": "文案/<篇名>/成片字幕与花字.json（caption_font / color / stroke）",
+ "成片": "产出/final/<品牌>_<篇名>.mp4",
+ "封面": "产出/final/<品牌>_<篇名>_抖音封面.png",
+ "qa": "<verdict 与 warn 说明>"
+}

@@ -1,0 +1,2635 @@
+{
+ "updated": "2026-10-03",
+ "models": [
+  {
+   "summary": "Async video quality enhancement — upscale, denoise, deblock, smart frame interpolation, and color refinement up to 4K with two quality tiers and five scene presets.",
+   "vendor": "undefined",
+   "category": "video-gen",
+   "model_ids": [
+    "enhance-video-1.0"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "video_url": {
+     "spec": "video-url, required",
+     "desc": "Source video"
+    },
+    "tool_version": {
+     "spec": "enum, optional, default \"standard\", one of: lite | standard | professional",
+     "desc": ""
+    },
+    "scene": {
+     "spec": "enum, optional, default \"common\", one of: common | ugc | short_series | aigc | old_film",
+     "desc": ""
+    },
+    "enhance_style": {
+     "spec": "enum, optional, one of: hd | natural",
+     "desc": ""
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"1080p\", one of: 240p | 360p | 480p | 540p | 720p | 1080p | 2k | 4k | 8k",
+     "desc": "Output resolution tier"
+    },
+    "resolution_limit": {
+     "spec": "integer, optional, range 128–4320",
+     "desc": ""
+    },
+    "bitrate_level": {
+     "spec": "enum, optional, default \"medium\", one of: low | medium | high",
+     "desc": ""
+    },
+    "bitrate": {
+     "spec": "integer, optional, range 10–150000",
+     "desc": ""
+    },
+    "bit_depth": {
+     "spec": "enum, optional, one of: 8 | 10 | 12 | 16",
+     "desc": ""
+    },
+    "fps": {
+     "spec": "integer, optional, range 15–120",
+     "desc": ""
+    },
+    "client_token": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "callback_args": {
+     "spec": "string, optional",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "lite",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.000564,
+     "credits": 1
+    },
+    {
+     "mode": "lite",
+     "category": "1080p",
+     "unit": "1 second",
+     "usd": 0.001127,
+     "credits": 2
+    },
+    {
+     "mode": "lite",
+     "category": "2k",
+     "unit": "1 second",
+     "usd": 0.002255,
+     "credits": 3
+    },
+    {
+     "mode": "lite",
+     "category": "4k",
+     "unit": "1 second",
+     "usd": 0.00451,
+     "credits": 5
+    },
+    {
+     "mode": "standard",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.002115,
+     "credits": 3
+    },
+    {
+     "mode": "standard",
+     "category": "1080p",
+     "unit": "1 second",
+     "usd": 0.004228,
+     "credits": 5
+    },
+    {
+     "mode": "standard",
+     "category": "2k",
+     "unit": "1 second",
+     "usd": 0.008456,
+     "credits": 9
+    },
+    {
+     "mode": "standard",
+     "category": "4k",
+     "unit": "1 second",
+     "usd": 0.016912,
+     "credits": 17
+    },
+    {
+     "mode": "standard",
+     "category": "8k",
+     "unit": "1 second",
+     "usd": 0.067647,
+     "credits": 68
+    },
+    {
+     "mode": "professional",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.02114,
+     "credits": 22
+    },
+    {
+     "mode": "professional",
+     "category": "1080p",
+     "unit": "1 second",
+     "usd": 0.042279,
+     "credits": 43
+    },
+    {
+     "mode": "professional",
+     "category": "2k",
+     "unit": "1 second",
+     "usd": 0.084559,
+     "credits": 85
+    },
+    {
+     "mode": "professional",
+     "category": "4k",
+     "unit": "1 second",
+     "usd": 0.169118,
+     "credits": 170
+    },
+    {
+     "mode": "professional",
+     "category": "8k",
+     "unit": "1 second",
+     "usd": 0.676471,
+     "credits": 677
+    }
+   ],
+   "slug": "enhance-video-1-0",
+   "preview": false
+  },
+  {
+   "summary": "Black Forest Labs FLUX 3 — one multimodal model for video with native audio, image synthesis and editing. Text-to-video, keyframes, video continuation and a draft-to-finalize loop through one reAPI endpoint.",
+   "vendor": "Black Forest Labs",
+   "category": "video-gen",
+   "model_ids": [
+    "flux-3-video"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, required, default \"A rain-soaked cafe terrace at dusk. A waiter sets down two glasses as a tram rolls past; rain, cutlery and the tram bell stay in sync with the picture.\"",
+     "desc": "Text description of what to generate"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 5–20",
+     "desc": "Output length in seconds"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"hd\", one of: hd | fhd",
+     "desc": "Output resolution tier"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"auto\", one of: auto | 21:9 | 2:1 | 16:9 | 4:3 | 1:1 | 3:4 | 9:16",
+     "desc": "Output aspect ratio"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–10",
+     "desc": "Reference or source images"
+    },
+    "video_url": {
+     "spec": "video-url, optional",
+     "desc": "Source video"
+    },
+    "audio": {
+     "spec": "boolean, optional, default true",
+     "desc": ""
+    },
+    "draft": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "safety_tolerance": {
+     "spec": "integer, optional, default 2, range 0–2",
+     "desc": ""
+    },
+    "mode": {
+     "spec": "enum, optional, default \"t2v\", one of: t2v | i2v | v2v",
+     "desc": ""
+    },
+    "draft_from_task_id": {
+     "spec": "string, optional",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "perSecond",
+     "category": "stdDraft",
+     "unit": "1 second",
+     "usd": 0.0552,
+     "credits": 56
+    },
+    {
+     "mode": "perSecond",
+     "category": "v2vDraft",
+     "unit": "1 second",
+     "usd": 0.1104,
+     "credits": 111
+    },
+    {
+     "mode": "perSecond",
+     "category": "stdHd",
+     "unit": "1 second",
+     "usd": 0.1564,
+     "credits": 157
+    },
+    {
+     "mode": "perSecond",
+     "category": "stdFhd",
+     "unit": "1 second",
+     "usd": 0.2668,
+     "credits": 267
+    },
+    {
+     "mode": "perSecond",
+     "category": "v2vHd",
+     "unit": "1 second",
+     "usd": 0.3772,
+     "credits": 378
+    },
+    {
+     "mode": "perSecond",
+     "category": "v2vFhd",
+     "unit": "1 second",
+     "usd": 0.4876,
+     "credits": 488
+    }
+   ],
+   "slug": "flux-3",
+   "preview": false
+  },
+  {
+   "summary": "Gemini Omni — Google's any-input video model. One endpoint covers text-to-video, image-to-video, three-image fusion, and reference-to-video at 720p, 1080p, or 4K. Flat per-generation billing.",
+   "vendor": "Google",
+   "category": "video-gen",
+   "model_ids": [],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, required, default \"A kitten dancing in a sunny garden, slow camera push-in, cinematic warm tones\", range …–2000",
+     "desc": "Text description of what to generate"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–3",
+     "desc": "Reference or source images"
+    },
+    "video_urls": {
+     "spec": "video-url-list, optional, range …–1",
+     "desc": "Source or reference videos"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"720p\", one of: 720p | 1080p | 4k",
+     "desc": "Output resolution tier"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16",
+     "desc": "Output aspect ratio"
+    },
+    "duration": {
+     "spec": "enum, optional, default \"6\", one of: 4 | 6 | 8 | 10",
+     "desc": "Output length in seconds"
+    }
+   },
+   "prices": [
+    {
+     "mode": "720p",
+     "category": "4s",
+     "unit": "1 generation",
+     "usd": 0.495,
+     "credits": 495
+    },
+    {
+     "mode": "720p",
+     "category": "6s",
+     "unit": "1 generation",
+     "usd": 0.66,
+     "credits": 660
+    },
+    {
+     "mode": "720p",
+     "category": "8s",
+     "unit": "1 generation",
+     "usd": 0.825,
+     "credits": 825
+    },
+    {
+     "mode": "720p",
+     "category": "10s",
+     "unit": "1 generation",
+     "usd": 0.99,
+     "credits": 990
+    },
+    {
+     "mode": "1080p",
+     "category": "4s",
+     "unit": "1 generation",
+     "usd": 0.495,
+     "credits": 495
+    },
+    {
+     "mode": "1080p",
+     "category": "6s",
+     "unit": "1 generation",
+     "usd": 0.66,
+     "credits": 660
+    },
+    {
+     "mode": "1080p",
+     "category": "8s",
+     "unit": "1 generation",
+     "usd": 0.825,
+     "credits": 825
+    },
+    {
+     "mode": "1080p",
+     "category": "10s",
+     "unit": "1 generation",
+     "usd": 0.99,
+     "credits": 990
+    },
+    {
+     "mode": "4k",
+     "category": "4s",
+     "unit": "1 generation",
+     "usd": 1.155,
+     "credits": 1155
+    },
+    {
+     "mode": "4k",
+     "category": "6s",
+     "unit": "1 generation",
+     "usd": 1.32,
+     "credits": 1320
+    },
+    {
+     "mode": "4k",
+     "category": "8s",
+     "unit": "1 generation",
+     "usd": 1.485,
+     "credits": 1485
+    },
+    {
+     "mode": "4k",
+     "category": "10s",
+     "unit": "1 generation",
+     "usd": 1.65,
+     "credits": 1650
+    },
+    {
+     "mode": "reference-720p",
+     "category": "perSecond",
+     "unit": "1 generation",
+     "usd": 1.32,
+     "credits": 1320
+    },
+    {
+     "mode": "reference-1080p",
+     "category": "perSecond",
+     "unit": "1 generation",
+     "usd": 1.32,
+     "credits": 1320
+    },
+    {
+     "mode": "reference-4k",
+     "category": "perSecond",
+     "unit": "1 generation",
+     "usd": 1.98,
+     "credits": 1980
+    }
+   ],
+   "slug": "gemini-omni",
+   "preview": false
+  },
+  {
+   "summary": "Gemini Omni 1.1 — Google's newest video model on one endpoint. Text, first-frame or reference images, three-image fusion, and reference-to-video at 360p, 720p, 1080p, or 4K. Flat per-generation billing.",
+   "vendor": "Google",
+   "category": "video-gen",
+   "model_ids": [],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, required, default \"A ginger cat hops onto a sunlit kitchen counter and sniffs a plate of fresh dumplings, warm morning light, slow dolly-in\", range …–2000",
+     "desc": "Text description of what to generate"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–3",
+     "desc": "Reference or source images"
+    },
+    "video_urls": {
+     "spec": "video-url-list, optional, range …–1",
+     "desc": "Source or reference videos"
+    },
+    "generation_type": {
+     "spec": "enum, optional, default \"frame\", one of: frame | reference",
+     "desc": ""
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"720p\", one of: 360p | 720p | 1080p | 4k",
+     "desc": "Output resolution tier"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16",
+     "desc": "Output aspect ratio"
+    },
+    "duration": {
+     "spec": "enum, optional, default \"6\", one of: 4 | 6 | 8 | 10",
+     "desc": "Output length in seconds"
+    },
+    "nsfw_checker": {
+     "spec": "boolean, optional, default true",
+     "desc": "Content-moderation toggle for this request"
+    }
+   },
+   "prices": [
+    {
+     "mode": "360p",
+     "category": "4s",
+     "unit": "1 generation",
+     "usd": 0.3465,
+     "credits": 347
+    },
+    {
+     "mode": "360p",
+     "category": "6s",
+     "unit": "1 generation",
+     "usd": 0.462,
+     "credits": 462
+    },
+    {
+     "mode": "360p",
+     "category": "8s",
+     "unit": "1 generation",
+     "usd": 0.5775,
+     "credits": 578
+    },
+    {
+     "mode": "360p",
+     "category": "10s",
+     "unit": "1 generation",
+     "usd": 0.693,
+     "credits": 693
+    },
+    {
+     "mode": "720p",
+     "category": "4s",
+     "unit": "1 generation",
+     "usd": 0.3465,
+     "credits": 347
+    },
+    {
+     "mode": "720p",
+     "category": "6s",
+     "unit": "1 generation",
+     "usd": 0.462,
+     "credits": 462
+    },
+    {
+     "mode": "720p",
+     "category": "8s",
+     "unit": "1 generation",
+     "usd": 0.5775,
+     "credits": 578
+    },
+    {
+     "mode": "720p",
+     "category": "10s",
+     "unit": "1 generation",
+     "usd": 0.693,
+     "credits": 693
+    },
+    {
+     "mode": "1080p",
+     "category": "4s",
+     "unit": "1 generation",
+     "usd": 0.3465,
+     "credits": 347
+    },
+    {
+     "mode": "1080p",
+     "category": "6s",
+     "unit": "1 generation",
+     "usd": 0.462,
+     "credits": 462
+    },
+    {
+     "mode": "1080p",
+     "category": "8s",
+     "unit": "1 generation",
+     "usd": 0.5775,
+     "credits": 578
+    },
+    {
+     "mode": "1080p",
+     "category": "10s",
+     "unit": "1 generation",
+     "usd": 0.693,
+     "credits": 693
+    },
+    {
+     "mode": "4k",
+     "category": "4s",
+     "unit": "1 generation",
+     "usd": 0.8085,
+     "credits": 809
+    },
+    {
+     "mode": "4k",
+     "category": "6s",
+     "unit": "1 generation",
+     "usd": 0.924,
+     "credits": 924
+    },
+    {
+     "mode": "4k",
+     "category": "8s",
+     "unit": "1 generation",
+     "usd": 1.0395,
+     "credits": 1040
+    },
+    {
+     "mode": "4k",
+     "category": "10s",
+     "unit": "1 generation",
+     "usd": 1.155,
+     "credits": 1155
+    },
+    {
+     "mode": "reference-360p",
+     "category": "reference",
+     "unit": "1 generation",
+     "usd": 0.924,
+     "credits": 924
+    },
+    {
+     "mode": "reference-720p",
+     "category": "reference",
+     "unit": "1 generation",
+     "usd": 0.924,
+     "credits": 924
+    },
+    {
+     "mode": "reference-1080p",
+     "category": "reference",
+     "unit": "1 generation",
+     "usd": 0.924,
+     "credits": 924
+    },
+    {
+     "mode": "reference-4k",
+     "category": "reference",
+     "unit": "1 generation",
+     "usd": 1.386,
+     "credits": 1386
+    }
+   ],
+   "slug": "gemini-omni-1-1",
+   "preview": false
+  },
+  {
+   "summary": "Grok Imagine 1.0 Video — async video generation with one endpoint that auto-routes text-to-video and image-to-video by `image_urls` count. 6 to 30 second outputs at 480p / 720p, five aspect ratios.",
+   "vendor": "xAI",
+   "category": "video-gen",
+   "model_ids": [
+    "grok-imagine-1.0-video"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A coastal road at sunset, gentle dolly forward, shallow depth of field\"",
+     "desc": "Text description of what to generate"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–7",
+     "desc": "Reference or source images"
+    },
+    "size": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16 | 1:1 | 3:2 | 2:3",
+     "desc": "Output size / aspect-ratio preset"
+    },
+    "duration": {
+     "spec": "integer, optional, default 6, range 6–30",
+     "desc": "Output length in seconds"
+    },
+    "quality": {
+     "spec": "enum, optional, default \"480p\", one of: 480p | 720p",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "standard",
+     "category": "480p",
+     "unit": "1 second",
+     "usd": 0.0136,
+     "credits": 14
+    },
+    {
+     "mode": "standard",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.024,
+     "credits": 24
+    }
+   ],
+   "slug": "grok-imagine-1-0-video",
+   "preview": false
+  },
+  {
+   "summary": "Grok Imagine Video 1.5 — async image-to-video with native synchronized audio. One required reference image, optional prompt, 480p / 720p, 1 to 15 second clips. Per-second pricing.",
+   "vendor": "xAI",
+   "category": "video-gen",
+   "model_ids": [
+    "grok-imagine-video-1.5-official",
+    "grok-imagine-video-1-5"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "image_urls": {
+     "spec": "image-url-list, required, default [\"https://cdn.deepytb.com/landing/grok-imagine-video-1-5/playground-input.png\"], range …–1",
+     "desc": "Reference or source images"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"auto\", one of: auto | 1:1 | 16:9 | 9:16 | 4:3 | 3:4 | 3:2 | 2:3",
+     "desc": "Output aspect ratio"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"480p\", one of: 480p | 720p",
+     "desc": "Output resolution tier"
+    },
+    "duration": {
+     "spec": "integer, optional, default 8, range 1–15",
+     "desc": "Output length in seconds"
+    },
+    "audio": {
+     "spec": "boolean, optional, default true",
+     "desc": ""
+    },
+    "nsfw_checker": {
+     "spec": "boolean, optional, default true",
+     "desc": "Content-moderation toggle for this request"
+    }
+   },
+   "prices": [
+    {
+     "mode": "official",
+     "category": "480p",
+     "unit": "1 second",
+     "usd": 0.04,
+     "credits": 40
+    },
+    {
+     "mode": "official",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.08,
+     "credits": 80
+    },
+    {
+     "mode": "standard",
+     "category": "480p",
+     "unit": "1 second",
+     "usd": 0.083375,
+     "credits": 84
+    },
+    {
+     "mode": "standard",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.14375,
+     "credits": 144
+    }
+   ],
+   "slug": "grok-imagine-video-1-5",
+   "preview": false
+  },
+  {
+   "summary": "Alibaba Happy Horse 1.0 — one async endpoint that auto-routes text-to-video, image-to-video, reference-to-video, and video edit by request shape.",
+   "vendor": "Alibaba Cloud Bailian",
+   "category": "video-gen",
+   "model_ids": [
+    "happyhorse-1.0-official",
+    "happyhorse-1-0"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A coastal road at sunset, slow-motion camera push-in, cinematic feel\"",
+     "desc": "Text description of what to generate"
+    },
+    "first_frame_image": {
+     "spec": "image-url, optional",
+     "desc": "Image anchoring the opening frame"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–9",
+     "desc": "Reference or source images"
+    },
+    "video_url": {
+     "spec": "video-url, optional",
+     "desc": "Source video"
+    },
+    "audio_setting": {
+     "spec": "enum, optional, default \"auto\", one of: auto | origin",
+     "desc": ""
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"1080P\", one of: 720P | 1080P",
+     "desc": "Output resolution tier"
+    },
+    "size": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16 | 1:1 | 4:3 | 3:4 | 4:5 | 5:4",
+     "desc": "Output size / aspect-ratio preset"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 3–15",
+     "desc": "Output length in seconds"
+    },
+    "watermark": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "seed": {
+     "spec": "integer, optional, range 0–2147483647",
+     "desc": "Fix the random seed for reproducible outputs"
+    }
+   },
+   "prices": [
+    {
+     "mode": "standard",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.1625,
+     "credits": 163
+    },
+    {
+     "mode": "standard",
+     "category": "1080p",
+     "unit": "1 second",
+     "usd": 0.2875,
+     "credits": 288
+    },
+    {
+     "mode": "official",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.14625,
+     "credits": 147
+    },
+    {
+     "mode": "official",
+     "category": "1080p",
+     "unit": "1 second",
+     "usd": 0.25875,
+     "credits": 259
+    }
+   ],
+   "slug": "happyhorse-1-0",
+   "preview": false
+  },
+  {
+   "summary": "Alibaba HappyHorse 1.1 — one async video endpoint that auto-routes text-to-video, image-to-video, and reference-to-video (up to 9 images) by request shape.",
+   "vendor": "Alibaba Cloud Bailian",
+   "category": "video-gen",
+   "model_ids": [
+    "happyhorse-1-1"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A coastal road at sunset, slow-motion camera push-in, cinematic feel\"",
+     "desc": "Text description of what to generate"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–1",
+     "desc": "Reference or source images"
+    },
+    "reference_image_urls": {
+     "spec": "image-url-list, optional, range …–9",
+     "desc": ""
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"720p\", one of: 720p | 1080p",
+     "desc": "Output resolution tier"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16 | 3:4 | 4:3 | 4:5 | 5:4 | 1:1 | 9:21 | 21:9",
+     "desc": "Output aspect ratio"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 3–15",
+     "desc": "Output length in seconds"
+    }
+   },
+   "prices": [
+    {
+     "mode": "standard",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.1815,
+     "credits": 182
+    },
+    {
+     "mode": "standard",
+     "category": "1080p",
+     "unit": "1 second",
+     "usd": 0.242,
+     "credits": 242
+    }
+   ],
+   "slug": "happyhorse-1-1",
+   "preview": false
+  },
+  {
+   "summary": "Kuaishou Kling 3.0 on reAPI — async multi-shot video, image-to-video, native multilingual audio, up to 4K, on one standard endpoint.",
+   "vendor": "Kuaishou",
+   "category": "video-gen",
+   "model_ids": [],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A soft anime-style girl standing in a field.\\nHair gently flowing in the wind, blinking slowly.\\nCamera: static close-up, slight breathing motion.\\nLighting: warm sunset glow.\\nStyle: Studio Ghibli inspired, soft shading.\\nLoopable animation, seamless.\\n6s, smooth loop.\"",
+     "desc": "Text description of what to generate"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–2",
+     "desc": "Reference or source images"
+    },
+    "duration": {
+     "spec": "integer, optional, default 6, range 3–15",
+     "desc": "Output length in seconds"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16 | 1:1",
+     "desc": "Output aspect ratio"
+    },
+    "mode": {
+     "spec": "enum, optional, default \"pro\", one of: std | pro | 4K",
+     "desc": ""
+    },
+    "sound": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "multi_shots": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "multi_prompt": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "kling_elements": {
+     "spec": "string, optional",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "stdNoAudio",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.077,
+     "credits": 77
+    },
+    {
+     "mode": "stdAudio",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.11,
+     "credits": 110
+    },
+    {
+     "mode": "proNoAudio",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.099,
+     "credits": 99
+    },
+    {
+     "mode": "proAudio",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.1485,
+     "credits": 149
+    },
+    {
+     "mode": "fourK",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.3685,
+     "credits": 369
+    }
+   ],
+   "slug": "kling-3-0",
+   "preview": false
+  },
+  {
+   "summary": "Kuaishou Kling 3.0 Turbo on reAPI — fast async text-to-video and image-to-video at 720p / 1080p, billed per second on one standard endpoint.",
+   "vendor": "Kuaishou",
+   "category": "video-gen",
+   "model_ids": [],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"The wizard slowly sips his Slurpee through a straw, then accidentally turns the hot dog roller rack into snakes with a twitch of his staff, jumps back startled, snakes slithering everywhere\"",
+     "desc": "Text description of what to generate"
+    },
+    "first_frame_image": {
+     "spec": "image-url, optional, default \"https://cdn.deepytb.com/landing/kling-3-0-turbo/playground-input.jpeg\"",
+     "desc": "Image anchoring the opening frame"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"720p\", one of: 720p | 1080p",
+     "desc": "Output resolution tier"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 3–15",
+     "desc": "Output length in seconds"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16 | 1:1",
+     "desc": "Output aspect ratio"
+    },
+    "watermark": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "res720",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.12584,
+     "credits": 126
+    },
+    {
+     "mode": "res1080",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.15752,
+     "credits": 158
+    }
+   ],
+   "slug": "kling-3-0-turbo",
+   "preview": false
+  },
+  {
+   "summary": null,
+   "vendor": "Kuaishou",
+   "category": "video-gen",
+   "model_ids": [],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {},
+   "prices": [
+    {
+     "mode": "priceUnit",
+     "category": "priceUnit",
+     "unit": "1 second",
+     "usd": 0.0,
+     "credits": 0
+    }
+   ],
+   "slug": "kling-4-0",
+   "preview": false
+  },
+  {
+   "summary": null,
+   "vendor": "Kuaishou",
+   "category": "video-gen",
+   "model_ids": [],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {},
+   "prices": [
+    {
+     "mode": "priceUnit",
+     "category": "priceUnit",
+     "unit": "1 second",
+     "usd": 0.0,
+     "credits": 0
+    }
+   ],
+   "slug": "kling-4-0-flash",
+   "preview": false
+  },
+  {
+   "summary": "Kling Motion Control — reference-driven motion transfer. Pass a reference image and a reference video; the API maps the motion onto your subject. Two tiers (v3, v2.6), std or pro, billed per second of source footage.",
+   "vendor": "Kuaishou",
+   "category": "video-gen",
+   "model_ids": [
+    "kling-v3-motion-control",
+    "kling-v2-6-motion-control"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, required, default \"Keep the subject consistent and follow the reference motion, cinematic lighting\"",
+     "desc": "Text description of what to generate"
+    },
+    "image_url": {
+     "spec": "image-url, required, default \"https://cdn.deepytb.com/landing/kling-motion-control/playground-input.webp\"",
+     "desc": "Reference or source image"
+    },
+    "video_url": {
+     "spec": "video-url, required, default \"https://cdn.deepytb.com/landing/kling-motion-control/playground-input.mp4\"",
+     "desc": "Source video"
+    },
+    "character_orientation": {
+     "spec": "enum, required, default \"image\", one of: image | video",
+     "desc": ""
+    },
+    "mode": {
+     "spec": "enum, required, default \"std\", one of: std | pro",
+     "desc": ""
+    },
+    "keep_original_sound": {
+     "spec": "enum, optional, default \"yes\", one of: yes | no",
+     "desc": ""
+    },
+    "watermark": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "v3",
+     "category": "std",
+     "unit": "1 second",
+     "usd": 0.113168,
+     "credits": 114
+    },
+    {
+     "mode": "v3",
+     "category": "pro",
+     "unit": "1 second",
+     "usd": 0.150832,
+     "credits": 151
+    },
+    {
+     "mode": "v26",
+     "category": "std",
+     "unit": "1 second",
+     "usd": 0.062832,
+     "credits": 63
+    },
+    {
+     "mode": "v26",
+     "category": "pro",
+     "unit": "1 second",
+     "usd": 0.100584,
+     "credits": 101
+    }
+   ],
+   "slug": "kling-motion-control",
+   "preview": false
+  },
+  {
+   "summary": "MiniMax H3 (Hailuo 03) — one async video endpoint that auto-routes text-to-video, image-to-video, and reference-to-video (images + videos + audio) by request shape. 2K output with native stereo audio.",
+   "vendor": "MiniMax",
+   "category": "video-gen",
+   "model_ids": [
+    "minimax-h3",
+    "minimax-h3-lite"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, required, default \"Create a 15-second cinematic contemporary-dance scene in a quiet historic courtyard shortly after rainfall. The courtyard has pale stone arches, weathered columns, shallow puddles, and soft reflections across the wet ground. A young woman stands alone in the center wearing a flowing dark red midi dress with long sleeves and simple black dance shoes. Preserve her face, hairstyle, clothing, and body proportions throughout the entire performance.\\n[0–3 seconds]\\nBegin in a restrained medium-wide shot from behind. The dancer stands completely still while water drips from the surrounding arches. A soft piano note begins. She slowly turns her head, then rotates her shoulders and body toward the camera with controlled natural movement.\\n[3–7 seconds]\\nShe begins a contemporary dance phrase with one extended arm, a grounded step forward, a low turn, and a smooth recovery into an upright pose. Her dress follows the movement with believable weight and delayed fabric motion. Keep both feet connected naturally to the wet stone surface without sliding.\\n[7–11 seconds]\\nThe rhythm becomes stronger. Track laterally as she performs two connected turns, opens both arms, lowers briefly through the knees, and rises into a longer traveling movement across the courtyard. Her reflection should remain aligned with her position and motion in the puddles.\\n[11–15 seconds]\\nMove slightly closer as she completes one final controlled rotation and stops in a stable pose with one arm raised and the other lowered. The music cuts to a quiet sustained note. Hold the final posture while fabric and loose hair settle naturally and rain continues dripping in the background.\\nCamera: measured dolly movement, restrained lateral tracking, natural perspective, no rapid orbiting or abrupt zooms.\\nLighting: soft overcast daylight with subtle warm reflections from the surrounding stone.\\nAudio: original minimal piano and low strings, light rainfall, fabric movement, footsteps on wet stone, and natural courtyard ambience.\\nMaintain realistic anatomy, continuous choreography, stable facial identity, accurate hand and foot placement, and physically believable clothing motion.\\nNo extra dancers, cuts to unrelated locations, duplicated limbs, distorted hands, floating feet, sudden costume changes, exaggerated acrobatics, theatrical facial expressions, subtitles, text, or logos.\"",
+     "desc": "Text description of what to generate"
+    },
+    "first_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "last_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "reference_image_urls": {
+     "spec": "image-url-list, optional, range …–9",
+     "desc": ""
+    },
+    "reference_video_urls": {
+     "spec": "video-url-list, optional, range …–3",
+     "desc": ""
+    },
+    "reference_audio_urls": {
+     "spec": "audio-url-list, optional, range …–3",
+     "desc": ""
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 21:9 | 16:9 | 4:3 | 1:1 | 3:4 | 9:16 | adaptive",
+     "desc": "Output aspect ratio"
+    },
+    "duration": {
+     "spec": "integer, optional, default 6, range 4–15",
+     "desc": "Output length in seconds"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"2K\", one of: 480P | 768P | 1080P | 2K | 4K",
+     "desc": "Output resolution tier"
+    },
+    "quality": {
+     "spec": "enum, required, one of: low | high",
+     "desc": ""
+    },
+    "seed": {
+     "spec": "integer, optional, range 0–…",
+     "desc": "Fix the random seed for reproducible outputs"
+    },
+    "enhance": {
+     "spec": "boolean, optional, default true",
+     "desc": ""
+    },
+    "nsfw_checker": {
+     "spec": "boolean, optional, default true",
+     "desc": "Content-moderation toggle for this request"
+    }
+   },
+   "prices": [
+    {
+     "mode": "lite",
+     "category": "litePerSecond",
+     "unit": "1 second",
+     "usd": 0.01,
+     "credits": 10
+    },
+    {
+     "mode": "lite",
+     "category": "litePerSecond4k",
+     "unit": "1 second",
+     "usd": 0.05,
+     "credits": 50
+    }
+   ],
+   "slug": "minimax-h3",
+   "preview": false
+  },
+  {
+   "summary": null,
+   "vendor": "MiniMax",
+   "category": "video-gen",
+   "model_ids": [
+    "minimax-h3-max"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, required, default \"A barista pours steamed milk into a dark espresso, the white spiral blooming into a rosetta as the cup fills. Close, handheld, warm morning light through a café window, steam curling off the surface.\"",
+     "desc": "Text description of what to generate"
+    },
+    "first_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "last_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 21:9 | 16:9 | 4:3 | 1:1 | 3:4 | 9:16 | adaptive",
+     "desc": "Output aspect ratio"
+    },
+    "duration": {
+     "spec": "integer, optional, default 6, range 5–15",
+     "desc": "Output length in seconds"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"768P\", one of: 480P | 768P",
+     "desc": "Output resolution tier"
+    }
+   },
+   "prices": [
+    {
+     "mode": "standard",
+     "category": "480p",
+     "unit": "1 second",
+     "usd": 0.0475,
+     "credits": 48
+    },
+    {
+     "mode": "standard",
+     "category": "768p",
+     "unit": "1 second",
+     "usd": 0.076,
+     "credits": 76
+    }
+   ],
+   "slug": "minimax-h3-max",
+   "preview": false
+  },
+  {
+   "summary": "Music Video 1.0 — turn a song into a music video. Pass an audio track and 1-7 reference images; the API returns a video synced to the song. Five aspect ratios, up to 1080P, optional burned-in subtitles, billed per second of the song.",
+   "vendor": "undefined",
+   "category": "video-gen",
+   "model_ids": [],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "reference_image_urls": {
+     "spec": "image-url-list, required, range 1–7",
+     "desc": ""
+    },
+    "audio_url": {
+     "spec": "audio-url, required",
+     "desc": "Source audio"
+    },
+    "aspect_ratio": {
+     "spec": "enum, required, default \"16:9\", one of: 1:1 | 16:9 | 9:16 | 4:3 | 3:4",
+     "desc": "Output aspect ratio"
+    },
+    "resolution": {
+     "spec": "enum, required, default \"540P\", one of: 540P | 720P | 1080P",
+     "desc": "Output resolution tier"
+    },
+    "name": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "prompt": {
+     "spec": "string, optional, default \"Moody neon city at night, slow cinematic camera drifting between the reference scenes, synced to the beat\"",
+     "desc": "Text description of what to generate"
+    },
+    "add_subtitle": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "subtitle_color": {
+     "spec": "color, optional, default \"#FFFFFF\"",
+     "desc": ""
+    },
+    "srt_url": {
+     "spec": "string, optional",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "r540",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.05,
+     "credits": 50
+    },
+    {
+     "mode": "r720",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.08,
+     "credits": 80
+    },
+    {
+     "mode": "r1080",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.15,
+     "credits": 150
+    }
+   ],
+   "slug": "music-video-1-0",
+   "preview": false
+  },
+  {
+   "summary": "Pixverse v6 — async video generation on one endpoint that auto-routes text-to-video, image-to-video, first/last-frame transitions, multi-reference fusion, and video extend. One model id; mode is implicit in the fields you send.",
+   "vendor": "PixVerse",
+   "category": "video-gen",
+   "model_ids": [],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, required, default \"A neon-lit Tokyo alley at night, light rain, anamorphic lens flare, slow dolly forward\"",
+     "desc": "Text description of what to generate"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"540p\", one of: 360p | 540p | 720p | 1080p",
+     "desc": "Output resolution tier"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 1–15",
+     "desc": "Output length in seconds"
+    },
+    "size": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 4:3 | 1:1 | 3:4 | 9:16 | 2:3 | 3:2 | 21:9",
+     "desc": "Output size / aspect-ratio preset"
+    },
+    "seed": {
+     "spec": "integer, optional, range 0–2147483647",
+     "desc": "Fix the random seed for reproducible outputs"
+    },
+    "negative_prompt": {
+     "spec": "string, optional",
+     "desc": "What the model should avoid generating"
+    },
+    "audio": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "watermark": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "motion_mode": {
+     "spec": "enum, optional, default \"normal\", one of: normal",
+     "desc": ""
+    },
+    "generate_multi_clip_switch": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–1",
+     "desc": "Reference or source images"
+    },
+    "first_frame_image": {
+     "spec": "image-url, optional",
+     "desc": "Image anchoring the opening frame"
+    },
+    "last_frame_image": {
+     "spec": "image-url, optional",
+     "desc": "Image anchoring the closing frame"
+    },
+    "img_references": {
+     "spec": "image-url-list, optional, range …–7",
+     "desc": ""
+    },
+    "extend_from_task_id": {
+     "spec": "string, optional",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "360p",
+     "category": "noAudio",
+     "unit": "1 second",
+     "usd": 0.0184,
+     "credits": 19
+    },
+    {
+     "mode": "360p",
+     "category": "audio",
+     "unit": "1 second",
+     "usd": 0.0276,
+     "credits": 28
+    },
+    {
+     "mode": "540p",
+     "category": "noAudio",
+     "unit": "1 second",
+     "usd": 0.0276,
+     "credits": 28
+    },
+    {
+     "mode": "540p",
+     "category": "audio",
+     "unit": "1 second",
+     "usd": 0.0368,
+     "credits": 37
+    },
+    {
+     "mode": "720p",
+     "category": "noAudio",
+     "unit": "1 second",
+     "usd": 0.0368,
+     "credits": 37
+    },
+    {
+     "mode": "720p",
+     "category": "audio",
+     "unit": "1 second",
+     "usd": 0.046,
+     "credits": 46
+    },
+    {
+     "mode": "1080p",
+     "category": "noAudio",
+     "unit": "1 second",
+     "usd": 0.0736,
+     "credits": 74
+    },
+    {
+     "mode": "1080p",
+     "category": "audio",
+     "unit": "1 second",
+     "usd": 0.092,
+     "credits": 92
+    }
+   ],
+   "slug": "pixverse-v6",
+   "preview": false
+  },
+  {
+   "summary": "ByteDance Seedance 2.0 — async video generation of 4–15 seconds with native audio on reAPI. Full parameter reference, request modes, content filter, and billing dimensions.",
+   "vendor": "ByteDance",
+   "category": "video-gen",
+   "model_ids": [
+    "doubao-seedance-2.0-face",
+    "doubao-seedance-2.0-fast-face",
+    "doubao-seedance-2.0-eco"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, required, default \"A kitten yawning at the camera, soft afternoon light, shallow depth of field\"",
+     "desc": "Text description of what to generate"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 4–15",
+     "desc": "Output length in seconds"
+    },
+    "size": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16 | 1:1 | 4:3 | 3:4 | 21:9 | adaptive",
+     "desc": "Output size / aspect-ratio preset"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"480p\", one of: 480p | 720p | 1080p | 4k",
+     "desc": "Output resolution tier"
+    },
+    "bitrate_mode": {
+     "spec": "enum, optional, default \"default\", one of: default | standard | high",
+     "desc": ""
+    },
+    "generate_audio": {
+     "spec": "boolean, optional, default false",
+     "desc": "Whether the output includes generated audio"
+    },
+    "watermark": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "return_last_frame": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "tools": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–9",
+     "desc": "Reference or source images"
+    },
+    "image_with_roles": {
+     "spec": "image-with-roles-list, optional",
+     "desc": ""
+    },
+    "video_urls": {
+     "spec": "video-url-list, optional, range …–3",
+     "desc": "Source or reference videos"
+    },
+    "audio_urls": {
+     "spec": "audio-url-list, optional, range …–3",
+     "desc": "Source or reference audio files"
+    },
+    "fallback": {
+     "spec": "boolean, optional, default true",
+     "desc": ""
+    },
+    "first_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "last_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "reference_image_urls": {
+     "spec": "image-url-list, optional, range …–9",
+     "desc": ""
+    },
+    "reference_video_urls": {
+     "spec": "video-url-list, optional, range …–3",
+     "desc": ""
+    },
+    "reference_audio_urls": {
+     "spec": "audio-url-list, optional, range …–3",
+     "desc": ""
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 1:1 | 4:3 | 3:4 | 16:9 | 9:16 | 21:9 | adaptive",
+     "desc": "Output aspect ratio"
+    },
+    "web_search": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "nsfw_checker": {
+     "spec": "boolean, optional, default true",
+     "desc": "Content-moderation toggle for this request"
+    }
+   },
+   "prices": [
+    {
+     "mode": "face",
+     "category": "480p_ref",
+     "unit": "1 second",
+     "usd": 0.043125,
+     "credits": 44
+    },
+    {
+     "mode": "face",
+     "category": "480p_text",
+     "unit": "1 second",
+     "usd": 0.07125,
+     "credits": 72
+    },
+    {
+     "mode": "face",
+     "category": "720p_ref",
+     "unit": "1 second",
+     "usd": 0.09375,
+     "credits": 94
+    },
+    {
+     "mode": "face",
+     "category": "720p_text",
+     "unit": "1 second",
+     "usd": 0.15375,
+     "credits": 154
+    },
+    {
+     "mode": "face",
+     "category": "1080p_ref",
+     "unit": "1 second",
+     "usd": 0.2325,
+     "credits": 233
+    },
+    {
+     "mode": "face",
+     "category": "1080p_text",
+     "unit": "1 second",
+     "usd": 0.3825,
+     "credits": 383
+    },
+    {
+     "mode": "face",
+     "category": "4k_ref",
+     "unit": "1 second",
+     "usd": 0.48,
+     "credits": 480
+    },
+    {
+     "mode": "face",
+     "category": "4k_text",
+     "unit": "1 second",
+     "usd": 0.78,
+     "credits": 780
+    },
+    {
+     "mode": "fastFace",
+     "category": "480p_ref",
+     "unit": "1 second",
+     "usd": 0.0306,
+     "credits": 31
+    },
+    {
+     "mode": "fastFace",
+     "category": "480p_text",
+     "unit": "1 second",
+     "usd": 0.0527,
+     "credits": 53
+    },
+    {
+     "mode": "fastFace",
+     "category": "720p_ref",
+     "unit": "1 second",
+     "usd": 0.068,
+     "credits": 68
+    },
+    {
+     "mode": "fastFace",
+     "category": "720p_text",
+     "unit": "1 second",
+     "usd": 0.1122,
+     "credits": 113
+    },
+    {
+     "mode": "eco",
+     "category": "720p_text",
+     "unit": "1 second",
+     "usd": 0.11275,
+     "credits": 113
+    },
+    {
+     "mode": "eco",
+     "category": "720p_ref",
+     "unit": "1 second",
+     "usd": 0.06875,
+     "credits": 69
+    },
+    {
+     "mode": "eco",
+     "category": "1080p_text",
+     "unit": "1 second",
+     "usd": 0.2805,
+     "credits": 281
+    },
+    {
+     "mode": "eco",
+     "category": "1080p_ref",
+     "unit": "1 second",
+     "usd": 0.1705,
+     "credits": 171
+    },
+    {
+     "mode": "eco",
+     "category": "4k_text",
+     "unit": "1 second",
+     "usd": 0.572,
+     "credits": 572
+    },
+    {
+     "mode": "eco",
+     "category": "4k_ref",
+     "unit": "1 second",
+     "usd": 0.352,
+     "credits": 352
+    }
+   ],
+   "slug": "seedance-2-0",
+   "preview": false
+  },
+  {
+   "summary": "ByteDance Seedance 2.0 Mini — the low-cost tier of Seedance 2.0. One async video endpoint that auto-routes text-to-video, image-to-video, and reference-to-video by request shape, at 480p / 720p.",
+   "vendor": "ByteDance",
+   "category": "video-gen",
+   "model_ids": [
+    "seedance-2.0-mini",
+    "doubao-seedance-2.0-eco-mini"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A neon city street at night, cars drifting through the rain, cinematic reflections on wet asphalt\"",
+     "desc": "Text description of what to generate"
+    },
+    "first_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "last_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "reference_image_urls": {
+     "spec": "image-url-list, optional, range …–9",
+     "desc": ""
+    },
+    "reference_video_urls": {
+     "spec": "video-url-list, optional, range …–3",
+     "desc": ""
+    },
+    "reference_audio_urls": {
+     "spec": "audio-url-list, optional, range …–3",
+     "desc": ""
+    },
+    "generate_audio": {
+     "spec": "boolean, optional, default false",
+     "desc": "Whether the output includes generated audio"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"720p\", one of: 480p | 720p | 1080p",
+     "desc": "Output resolution tier"
+    },
+    "bitrate_mode": {
+     "spec": "enum, optional, default \"default\", one of: default | standard | high",
+     "desc": ""
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 1:1 | 4:3 | 3:4 | 16:9 | 9:16 | 21:9 | adaptive",
+     "desc": "Output aspect ratio"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 4–15",
+     "desc": "Output length in seconds"
+    },
+    "web_search": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "nsfw_checker": {
+     "spec": "boolean, optional, default true",
+     "desc": "Content-moderation toggle for this request"
+    },
+    "size": {
+     "spec": "enum, optional, default \"adaptive\", one of: 16:9 | 9:16 | 1:1 | 4:3 | 3:4 | 21:9 | adaptive",
+     "desc": "Output size / aspect-ratio preset"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–9",
+     "desc": "Reference or source images"
+    },
+    "image_with_roles": {
+     "spec": "image-with-roles-list, optional, range …–9",
+     "desc": ""
+    },
+    "video_urls": {
+     "spec": "video-url-list, optional, range …–3",
+     "desc": "Source or reference videos"
+    },
+    "audio_urls": {
+     "spec": "audio-url-list, optional, range …–3",
+     "desc": "Source or reference audio files"
+    },
+    "watermark": {
+     "spec": "boolean, optional",
+     "desc": ""
+    },
+    "return_last_frame": {
+     "spec": "boolean, optional",
+     "desc": ""
+    },
+    "tools": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "standard",
+     "category": "480p_text",
+     "unit": "1 second",
+     "usd": 0.016625,
+     "credits": 17
+    },
+    {
+     "mode": "standard",
+     "category": "480p_ref",
+     "unit": "1 second",
+     "usd": 0.0105,
+     "credits": 11
+    },
+    {
+     "mode": "standard",
+     "category": "720p_text",
+     "unit": "1 second",
+     "usd": 0.035875,
+     "credits": 36
+    },
+    {
+     "mode": "standard",
+     "category": "720p_ref",
+     "unit": "1 second",
+     "usd": 0.021875,
+     "credits": 22
+    },
+    {
+     "mode": "eco",
+     "category": "720p_text",
+     "unit": "1 second",
+     "usd": 0.0205,
+     "credits": 21
+    },
+    {
+     "mode": "eco",
+     "category": "720p_ref",
+     "unit": "1 second",
+     "usd": 0.0125,
+     "credits": 13
+    },
+    {
+     "mode": "eco",
+     "category": "1080p_text",
+     "unit": "1 second",
+     "usd": 0.051,
+     "credits": 51
+    },
+    {
+     "mode": "eco",
+     "category": "1080p_ref",
+     "unit": "1 second",
+     "usd": 0.031,
+     "credits": 31
+    }
+   ],
+   "slug": "seedance-2-0-mini",
+   "preview": false
+  },
+  {
+   "summary": "ByteDance Seedance 2.5 — async video generation up to 30 seconds with native audio on reAPI. Full parameter reference, request modes, and billing dimensions.",
+   "vendor": "ByteDance",
+   "category": "video-gen",
+   "model_ids": [
+    "doubao-seedance-2.5-face",
+    "doubao-seedance-2.5-eco"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A kitten yawning at the camera, soft afternoon light, shallow depth of field\"",
+     "desc": "Text description of what to generate"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–30",
+     "desc": "Reference or source images"
+    },
+    "image_with_roles": {
+     "spec": "image-with-roles-list, optional",
+     "desc": ""
+    },
+    "video_urls": {
+     "spec": "video-url-list, optional, range …–10",
+     "desc": "Source or reference videos"
+    },
+    "audio_urls": {
+     "spec": "audio-url-list, optional, range …–10",
+     "desc": "Source or reference audio files"
+    },
+    "omni_reference_task_type": {
+     "spec": "enum, optional, default \"auto\", one of: auto | reference | edit | extend",
+     "desc": ""
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 4–30",
+     "desc": "Output length in seconds"
+    },
+    "size": {
+     "spec": "enum, optional, default \"adaptive\", one of: 16:9 | 9:16 | 1:1 | 4:3 | 3:4 | 21:9 | adaptive",
+     "desc": "Output size / aspect-ratio preset"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"720p\", one of: 480p | 720p | 1080p",
+     "desc": "Output resolution tier"
+    },
+    "bitrate_mode": {
+     "spec": "enum, optional, default \"default\", one of: default | standard | high",
+     "desc": ""
+    },
+    "generate_audio": {
+     "spec": "boolean, optional, default true",
+     "desc": "Whether the output includes generated audio"
+    },
+    "output_format": {
+     "spec": "enum, optional, default \"mp4\", one of: mp4 | mov",
+     "desc": "File format of the output"
+    },
+    "watermark": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "return_last_frame": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "tools": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "seed": {
+     "spec": "integer, optional",
+     "desc": "Fix the random seed for reproducible outputs"
+    },
+    "draft": {
+     "spec": "boolean, optional",
+     "desc": ""
+    },
+    "draft_task_id": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "nsfw_checker": {
+     "spec": "boolean, optional, default true",
+     "desc": "Content-moderation toggle for this request"
+    }
+   },
+   "prices": [
+    {
+     "mode": "face",
+     "category": "480p_ref",
+     "unit": "1 second",
+     "usd": 0.071153,
+     "credits": 72
+    },
+    {
+     "mode": "face",
+     "category": "480p_text",
+     "unit": "1 second",
+     "usd": 0.118589,
+     "credits": 119
+    },
+    {
+     "mode": "face",
+     "category": "720p_ref",
+     "unit": "1 second",
+     "usd": 0.160094,
+     "credits": 161
+    },
+    {
+     "mode": "face",
+     "category": "720p_text",
+     "unit": "1 second",
+     "usd": 0.266824,
+     "credits": 267
+    },
+    {
+     "mode": "face",
+     "category": "1080p_ref",
+     "unit": "1 second",
+     "usd": 0.383966,
+     "credits": 384
+    },
+    {
+     "mode": "face",
+     "category": "1080p_text",
+     "unit": "1 second",
+     "usd": 0.64275,
+     "credits": 643
+    },
+    {
+     "mode": "eco",
+     "category": "720p_text",
+     "unit": "1 second",
+     "usd": 0.200118,
+     "credits": 201
+    },
+    {
+     "mode": "eco",
+     "category": "720p_ref",
+     "unit": "1 second",
+     "usd": 0.120071,
+     "credits": 121
+    },
+    {
+     "mode": "eco",
+     "category": "1080p_text",
+     "unit": "1 second",
+     "usd": 0.346392,
+     "credits": 347
+    },
+    {
+     "mode": "eco",
+     "category": "1080p_ref",
+     "unit": "1 second",
+     "usd": 0.206928,
+     "credits": 207
+    }
+   ],
+   "slug": "seedance-2-5",
+   "preview": false
+  },
+  {
+   "summary": "Topaz Video Upscaler — upscale and enhance any clip to 4K. Send a source video URL and an upscale factor (1×, 2×, 4×); the API returns a sharper, higher-resolution render. Billed per second of source footage.",
+   "vendor": "Topaz Labs",
+   "category": "video-gen",
+   "model_ids": [],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "video_url": {
+     "spec": "video-url, required, default \"https://cdn.deepytb.com/landing/topaz-video-upscaler/playground-input-skaters.mp4\"",
+     "desc": "Source video"
+    },
+    "upscale_factor": {
+     "spec": "enum, optional, default \"2\", one of: 1 | 2 | 4",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "standard",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.044,
+     "credits": 44
+    },
+    {
+     "mode": "max",
+     "category": "perSecond",
+     "unit": "1 second",
+     "usd": 0.077,
+     "credits": 77
+    }
+   ],
+   "slug": "topaz-video-upscaler",
+   "preview": false
+  },
+  {
+   "summary": "Google Veo 3.1 — async video generation in five channels. Fast, Quality, and Lite for per-generation pricing; Fast Official and Quality Official for per-second pricing with audio and 4K.",
+   "vendor": "Google",
+   "category": "video-gen",
+   "model_ids": [
+    "veo3.1-fast",
+    "veo3.1-quality",
+    "veo3.1-lite",
+    "veo3.1-fast-official",
+    "veo3.1-quality-official"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, required, default \"First-person POV walking through a Tokyo arcade at night, neon reflections on wet pavement, ambient crowd\"",
+     "desc": "Text description of what to generate"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16",
+     "desc": "Output aspect ratio"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"720p\", one of: 720p | 1080p | 4k",
+     "desc": "Output resolution tier"
+    },
+    "duration": {
+     "spec": "enum, optional, default \"8\", one of: 4 | 6 | 8",
+     "desc": "Output length in seconds"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–3",
+     "desc": "Reference or source images"
+    },
+    "generation_type": {
+     "spec": "enum, optional, one of: frame | reference",
+     "desc": ""
+    },
+    "enable_gif": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "first_frame_image": {
+     "spec": "image-url, optional",
+     "desc": "Image anchoring the opening frame"
+    },
+    "last_frame_image": {
+     "spec": "image-url, optional",
+     "desc": "Image anchoring the closing frame"
+    },
+    "negative_prompt": {
+     "spec": "string, optional",
+     "desc": "What the model should avoid generating"
+    },
+    "seed": {
+     "spec": "integer, optional",
+     "desc": "Fix the random seed for reproducible outputs"
+    },
+    "generate_audio": {
+     "spec": "boolean, optional, default false",
+     "desc": "Whether the output includes generated audio"
+    },
+    "person_generation": {
+     "spec": "enum, optional, default \"allow_adult\", one of: allow_adult | disallow",
+     "desc": ""
+    },
+    "resize_mode": {
+     "spec": "enum, optional, default \"pad\", one of: pad | crop",
+     "desc": ""
+    },
+    "enhance_prompt": {
+     "spec": "boolean, optional, default true",
+     "desc": ""
+    }
+   },
+   "prices": [
+    {
+     "mode": "fast",
+     "category": "720p_1080p",
+     "unit": "1 generation",
+     "usd": 0.161,
+     "credits": 161
+    },
+    {
+     "mode": "fast",
+     "category": "4k",
+     "unit": "1 generation",
+     "usd": 0.736,
+     "credits": 736
+    },
+    {
+     "mode": "quality",
+     "category": "720p_1080p",
+     "unit": "1 generation",
+     "usd": 1.15,
+     "credits": 1150
+    },
+    {
+     "mode": "quality",
+     "category": "4k",
+     "unit": "1 generation",
+     "usd": 1.725,
+     "credits": 1725
+    },
+    {
+     "mode": "lite",
+     "category": "720p_1080p",
+     "unit": "1 generation",
+     "usd": 0.0805,
+     "credits": 81
+    },
+    {
+     "mode": "lite",
+     "category": "4k",
+     "unit": "1 generation",
+     "usd": 0.6555,
+     "credits": 656
+    },
+    {
+     "mode": "fastOfficial",
+     "category": "default_no_audio",
+     "unit": "1 second",
+     "usd": 0.092,
+     "credits": 92
+    },
+    {
+     "mode": "fastOfficial",
+     "category": "default_audio",
+     "unit": "1 second",
+     "usd": 0.1104,
+     "credits": 111
+    },
+    {
+     "mode": "fastOfficial",
+     "category": "720p_no_audio",
+     "unit": "1 second",
+     "usd": 0.0736,
+     "credits": 74
+    },
+    {
+     "mode": "fastOfficial",
+     "category": "720p_audio",
+     "unit": "1 second",
+     "usd": 0.092,
+     "credits": 92
+    },
+    {
+     "mode": "fastOfficial",
+     "category": "1080p_no_audio",
+     "unit": "1 second",
+     "usd": 0.092,
+     "credits": 92
+    },
+    {
+     "mode": "fastOfficial",
+     "category": "1080p_audio",
+     "unit": "1 second",
+     "usd": 0.1104,
+     "credits": 111
+    },
+    {
+     "mode": "fastOfficial",
+     "category": "4k_no_audio",
+     "unit": "1 second",
+     "usd": 0.23,
+     "credits": 230
+    },
+    {
+     "mode": "fastOfficial",
+     "category": "4k_audio",
+     "unit": "1 second",
+     "usd": 0.276,
+     "credits": 276
+    },
+    {
+     "mode": "qualityOfficial",
+     "category": "default_no_audio",
+     "unit": "1 second",
+     "usd": 0.184,
+     "credits": 184
+    },
+    {
+     "mode": "qualityOfficial",
+     "category": "default_audio",
+     "unit": "1 second",
+     "usd": 0.368,
+     "credits": 368
+    },
+    {
+     "mode": "qualityOfficial",
+     "category": "720p_no_audio",
+     "unit": "1 second",
+     "usd": 0.184,
+     "credits": 184
+    },
+    {
+     "mode": "qualityOfficial",
+     "category": "720p_audio",
+     "unit": "1 second",
+     "usd": 0.368,
+     "credits": 368
+    },
+    {
+     "mode": "qualityOfficial",
+     "category": "1080p_no_audio",
+     "unit": "1 second",
+     "usd": 0.184,
+     "credits": 184
+    },
+    {
+     "mode": "qualityOfficial",
+     "category": "1080p_audio",
+     "unit": "1 second",
+     "usd": 0.368,
+     "credits": 368
+    },
+    {
+     "mode": "qualityOfficial",
+     "category": "4k_no_audio",
+     "unit": "1 second",
+     "usd": 0.368,
+     "credits": 368
+    },
+    {
+     "mode": "qualityOfficial",
+     "category": "4k_audio",
+     "unit": "1 second",
+     "usd": 0.552,
+     "credits": 552
+    }
+   ],
+   "slug": "veo3-1",
+   "preview": false
+  },
+  {
+   "summary": "Vidu Q3 — async video generation with one endpoint that auto-routes text-to-video, image-to-video, and first/last-frame transitions. Pro and Turbo variants share the same parameters; pick by `model`.",
+   "vendor": "Vidu",
+   "category": "video-gen",
+   "model_ids": [
+    "viduq3-pro",
+    "viduq3-turbo"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A kitten playing piano, slow camera push-in, cinematic warm tones\"",
+     "desc": "Text description of what to generate"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–2",
+     "desc": "Reference or source images"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"720p\", one of: 540p | 720p | 1080p",
+     "desc": "Output resolution tier"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16 | 4:3 | 3:4 | 1:1",
+     "desc": "Output aspect ratio"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 1–16",
+     "desc": "Output length in seconds"
+    },
+    "audio": {
+     "spec": "boolean, optional, default true",
+     "desc": ""
+    },
+    "seed": {
+     "spec": "integer, optional, range -1–4294967295",
+     "desc": "Fix the random seed for reproducible outputs"
+    }
+   },
+   "prices": [
+    {
+     "mode": "pro",
+     "category": "540p",
+     "unit": "1 second",
+     "usd": 0.0644,
+     "credits": 65
+    },
+    {
+     "mode": "pro",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.138,
+     "credits": 138
+    },
+    {
+     "mode": "pro",
+     "category": "1080p",
+     "unit": "1 second",
+     "usd": 0.1472,
+     "credits": 148
+    },
+    {
+     "mode": "turbo",
+     "category": "540p",
+     "unit": "1 second",
+     "usd": 0.0368,
+     "credits": 37
+    },
+    {
+     "mode": "turbo",
+     "category": "720p",
+     "unit": "1 second",
+     "usd": 0.0552,
+     "credits": 56
+    },
+    {
+     "mode": "turbo",
+     "category": "1080p",
+     "unit": "1 second",
+     "usd": 0.0644,
+     "credits": 65
+    }
+   ],
+   "slug": "viduq3",
+   "preview": false
+  },
+  {
+   "summary": "Wan 2.7 Video — one endpoint for text-to-video, image-to-video, reference-to-video, and video editing. The umbrella model auto-routes by request shape, renders 720P or 1080P, and bills per second.",
+   "vendor": "Alibaba",
+   "category": "video-gen",
+   "model_ids": [
+    "wan2.7-video"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A paper boat drifting down a rain-soaked street at dusk, neon reflections on the wet asphalt, slow dolly-in, cinematic\"",
+     "desc": "Text description of what to generate"
+    },
+    "negative_prompt": {
+     "spec": "string, optional",
+     "desc": "What the model should avoid generating"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–4",
+     "desc": "Reference or source images"
+    },
+    "image_with_roles": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "video_urls": {
+     "spec": "video-url-list, optional, range …–1",
+     "desc": "Source or reference videos"
+    },
+    "audio_url": {
+     "spec": "audio-url, optional",
+     "desc": "Source audio"
+    },
+    "reference_image_urls": {
+     "spec": "image-url-list, optional, range …–5",
+     "desc": ""
+    },
+    "reference_video_urls": {
+     "spec": "video-url-list, optional, range …–5",
+     "desc": ""
+    },
+    "reference_voice_urls": {
+     "spec": "audio-url-list, optional, range …–5",
+     "desc": ""
+    },
+    "video_url": {
+     "spec": "video-url, optional",
+     "desc": "Source video"
+    },
+    "audio_setting": {
+     "spec": "enum, optional, one of: auto | origin",
+     "desc": ""
+    },
+    "size": {
+     "spec": "enum, optional, default \"16:9\", one of: 16:9 | 9:16 | 1:1 | 4:3 | 3:4",
+     "desc": "Output size / aspect-ratio preset"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"1080P\", one of: 720P | 1080P",
+     "desc": "Output resolution tier"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 2–15",
+     "desc": "Output length in seconds"
+    },
+    "prompt_extend": {
+     "spec": "boolean, optional, default true",
+     "desc": ""
+    },
+    "watermark": {
+     "spec": "boolean, optional, default false",
+     "desc": ""
+    },
+    "seed": {
+     "spec": "integer, optional, range 0–…",
+     "desc": "Fix the random seed for reproducible outputs"
+    }
+   },
+   "prices": [
+    {
+     "mode": "r720",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.07304,
+     "credits": 74
+    },
+    {
+     "mode": "r1080",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.12056,
+     "credits": 121
+    }
+   ],
+   "slug": "wan-2-7-video",
+   "preview": false
+  },
+  {
+   "summary": "Wan 3.0 API — up to 30 seconds from text, frames or reference media, with 480P through 4K output. API-key access only; ordinary keys use the NSFW channel.",
+   "vendor": "Alibaba",
+   "category": "video-gen",
+   "model_ids": [
+    "wan3.0-video"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A lighthouse keeper climbs a spiral staircase at dawn, camera following through the window light, 30 seconds, cinematic\"",
+     "desc": "Text description of what to generate"
+    },
+    "image_urls": {
+     "spec": "image-url-list, optional, range …–10",
+     "desc": "Reference or source images"
+    },
+    "image_with_roles": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "video_urls": {
+     "spec": "video-url-list, optional, range …–5",
+     "desc": "Source or reference videos"
+    },
+    "audio_urls": {
+     "spec": "audio-url-list, optional, range …–5",
+     "desc": "Source or reference audio files"
+    },
+    "audio_url": {
+     "spec": "audio-url, optional",
+     "desc": "Source audio"
+    },
+    "file_url": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "link_url": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "generation_type": {
+     "spec": "enum, optional, one of: frame | reference",
+     "desc": ""
+    },
+    "size": {
+     "spec": "enum, optional, default \"adaptive\", one of: adaptive | 16:9 | 9:16 | 1:1 | 4:3 | 3:4",
+     "desc": "Output size / aspect-ratio preset"
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"1080P\", one of: 480P | 720P | 1080P | 2K | 4K",
+     "desc": "Output resolution tier"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 2–30",
+     "desc": "Output length in seconds"
+    },
+    "audio": {
+     "spec": "boolean, optional, default true",
+     "desc": ""
+    },
+    "seed": {
+     "spec": "integer, optional, range 0–2147483647",
+     "desc": "Fix the random seed for reproducible outputs"
+    }
+   },
+   "prices": [
+    {
+     "mode": "r480",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.035317,
+     "credits": 36
+    },
+    {
+     "mode": "r720",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.070625,
+     "credits": 71
+    },
+    {
+     "mode": "r1080",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.141258,
+     "credits": 142
+    },
+    {
+     "mode": "r2k",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.206,
+     "credits": 206
+    },
+    {
+     "mode": "r4k",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.2369,
+     "credits": 237
+    }
+   ],
+   "slug": "wan-3-0",
+   "preview": false
+  },
+  {
+   "summary": "Wan 3.0 Video Prime API — up to 30 seconds from text, frames or reference media, with 480P through 4K output. API-key access only; ordinary keys use the NSFW channel.",
+   "vendor": "Alibaba",
+   "category": "video-gen",
+   "model_ids": [
+    "wan3.0-video-prime"
+   ],
+   "endpoint": "`POST https://reapi.ai/api/v1/videos/generations` (Bearer auth; returns a task id immediately — see Task lifecycle below)",
+   "params": {
+    "prompt": {
+     "spec": "string, optional, default \"A lighthouse keeper climbs a spiral staircase at dawn in one unbroken take, camera following her through the window light, salt spray drying on the glass, gulls crossing the frame, cinematic, 20 seconds\"",
+     "desc": "Text description of what to generate"
+    },
+    "first_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "last_frame_url": {
+     "spec": "image-url, optional",
+     "desc": ""
+    },
+    "reference_image_urls": {
+     "spec": "image-url-list, optional, range …–10",
+     "desc": ""
+    },
+    "reference_video_urls": {
+     "spec": "video-url-list, optional, range …–5",
+     "desc": ""
+    },
+    "reference_audio_urls": {
+     "spec": "audio-url-list, optional, range …–5",
+     "desc": ""
+    },
+    "reference_file_urls": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "reference_link_urls": {
+     "spec": "string, optional",
+     "desc": ""
+    },
+    "resolution": {
+     "spec": "enum, optional, default \"1080P\", one of: 480P | 720P | 1080P | 2K | 4K",
+     "desc": "Output resolution tier"
+    },
+    "aspect_ratio": {
+     "spec": "enum, optional, default \"adaptive\", one of: adaptive | 16:9 | 9:16 | 1:1 | 4:3 | 3:4",
+     "desc": "Output aspect ratio"
+    },
+    "duration": {
+     "spec": "integer, optional, default 5, range 2–30",
+     "desc": "Output length in seconds"
+    },
+    "audio": {
+     "spec": "boolean, optional, default true",
+     "desc": ""
+    },
+    "seed": {
+     "spec": "integer, optional, range 0–2147483647",
+     "desc": "Fix the random seed for reproducible outputs"
+    }
+   },
+   "prices": [
+    {
+     "mode": "r480",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.056304,
+     "credits": 57
+    },
+    {
+     "mode": "r720",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.11592,
+     "credits": 116
+    },
+    {
+     "mode": "r1080",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.23184,
+     "credits": 232
+    },
+    {
+     "mode": "r2k",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.2576,
+     "credits": 258
+    },
+    {
+     "mode": "r4k",
+     "category": "video",
+     "unit": "1 second",
+     "usd": 0.2852,
+     "credits": 286
+    }
+   ],
+   "slug": "wan-3-0-video-prime",
+   "preview": false
+  }
+ ]
+}

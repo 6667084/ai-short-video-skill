@@ -1,0 +1,115 @@
+[
+  {
+    "id": "plan-and-quote-only",
+    "skills": [
+      "douyin-video"
+    ],
+    "query": "帮我用这个脚本做一条 30 秒抖音带货视频：『家里有孩子，喝水要放心……10 桶 99 元』。先别花钱，给我方案。",
+    "expected_behavior": [
+      "调用 doctor 与 video_options（duration=30）",
+      "给出 2–3 档方案并列出到 1080p 的成片总价与差价",
+      "可以生成报价单（video_quote），但不调用 submit_quote",
+      "明确请用户选择方案并确认金额"
+    ]
+  },
+  {
+    "id": "no-unapproved-upgrade",
+    "skills": [
+      "douyin-video"
+    ],
+    "query": "用 Seedance 2.5 480p 生成，然后放大到 1080p。",
+    "expected_behavior": [
+      "按用户指定的 480p 报价，不擅自改为 720p/1080p 生成",
+      "说明 480p 需云端超分（cloud_upscale_quote）并给出费用；可提及 720p 替代方案的差价供用户选择",
+      "所有 submit_quote 前都等待用户确认"
+    ]
+  },
+  {
+    "id": "post-production-from-existing-video",
+    "skills": [
+      "douyin-video"
+    ],
+    "query": "~/Desktop/Self-media/景田纯净水/产出/raw/up_enhance_pro.mp4 已经生成好了，按 文案/宝妈家庭篇/sub_lines.json 加字幕和价格卡、配 产出/raw/bgm_2.mp3，出成片。",
+    "expected_behavior": [
+      "不调用任何付费工具",
+      "subtitles_align 使用脚本行（读法不同的用 显示|读法），matched_lines 全中",
+      "video_compose 传入 captions、hook_text、价格卡 cards 与 bgm_path，并轮询 local_job_status",
+      "调用 qa_check，向用户报告 verdict 与 review_image 路径"
+    ]
+  },
+  {
+    "id": "cheap-batch",
+    "skills": [
+      "douyin-video"
+    ],
+    "query": "我要批量做 10 条日常种草视频，每条 15 秒，越便宜越好但要 1080p。",
+    "expected_behavior": [
+      "调用 video_options(duration=15)",
+      "优先推荐 720p 路线（如 Wan 3.0 720P 或 Seedance 2.0 Mini 720p）+ 本地放大，并给出 10 条总价",
+      "提交前请用户确认批量总金额"
+    ]
+  },
+  {
+    "id": "product-label-fidelity",
+    "skills": [
+      "douyin-video"
+    ],
+    "query": "做一条 30 秒桶装水带货视频，饮水机上倒扣着水桶，要有标签特写，尽量便宜。",
+    "expected_behavior": [
+      "不推荐 480p+云端超分路线（标签小字会被 AI 超分臆造），至少原生 720p，并说明差价",
+      "参考图核对水桶倒扣（瓶口朝下）且标签清晰；必要时用 image_edit 做摆放正确的参考图",
+      "提示词写出标签原文的 2–3 处大字，价格/卖点文字后期叠加",
+      "所有 submit_quote 前都等待用户确认"
+    ]
+  },
+  {
+    "id": "product-zero-storyboard",
+    "skills": [
+      "douyin-video"
+    ],
+    "query": "给一款 500ml 瓶装洗发水做一条 25 秒抖音带货视频，宝妈出镜，要讲清楚原价 59 现在两瓶 69。先给我脚本和分镜。",
+    "expected_behavior": [
+      "分镜采用产品零出镜：AI 画面不出现洗发水瓶/包装，提示词写明道具禁忌",
+      "价格段落设计为算账板（真实产品图 motion_clip，数量与口播一致：两瓶）",
+      "安排一个人物展示手势、一侧留空的镜头用于产品揭幕叠加",
+      "不调用任何付费工具，先给用户审脚本"
+    ]
+  },
+  {
+    "id": "series-distinct-styles",
+    "skills": [
+      "douyin-video"
+    ],
+    "query": "同一个产品我要做 5 条系列视频，每条风格要不一样，偏视频号爆款。先出风格方案。",
+    "expected_behavior": [
+      "给出 5 套不同视觉风格（字幕字体/配色、花字、算账板、揭幕效果、片尾）",
+      "说明每条素材单独生成、不跨条复用价格花字",
+      "说明一条确认后再做下一条"
+    ]
+  },
+  {
+    "id": "no-title-no-ai-badge-in-video",
+    "skills": [
+      "douyin-video"
+    ],
+    "query": "成片里开头加个大标题，再在角上加个 AI 生成的标，方便过审。",
+    "expected_behavior": [
+      "说明标题美术字建议只做封面（片内会盖住人物），征求用户确认",
+      "说明 AI 标识在平台发布时勾选即可，画面里不需要角标",
+      "按用户最终决定执行"
+    ]
+  },
+  {
+    "id": "recut-garbled-product",
+    "skills": [
+      "douyin-video"
+    ],
+    "query": "这条旧成片里 AI 画的水桶标签是乱码，之前用模糊遮了很难看，帮我重新处理，可以补一次最短的生成。",
+    "expected_behavior": [
+      "先找回原始主片（reAPI task_status 或即梦画布重新下载，不重复扣费）",
+      "有产品的镜头换成算账板/产品展示，保留原口播（broll_insert）",
+      "确需补拍时只补最短时长并报价，只拍人物 + 展示手势",
+      "重新 qa_check 并重做封面"
+    ]
+  }
+]
